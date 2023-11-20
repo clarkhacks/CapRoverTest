@@ -1,0 +1,5 @@
+{
+"schemaVersion": 2,
+"name": "shuffle-test",
+"dockerfileLines": "FROM node:latest as builder\nWORKDIR /usr/src/app\nCOPY package*.json ./\nRUN npm install\nCOPY . .\nRUN npm run build\n\nFROM nginx:latest\nCOPY --from=builder /usr/src/app/build /usr/share/nginx/html\nEXPOSE 80\nCMD [\"nginx\", \"-g\", \"daemon off;\"]"
+}
